@@ -4,8 +4,7 @@ class DonorsController < ApplicationController
   # GET /donors
   def index
     @donors = Donor.all
-
-    render json: @donors
+    render json: @donors.to_json(except:[:created_at, :updated_at], include: {donations: {except: [:created_at, :updated_at]}})
   end
 
   # GET /donors/1
