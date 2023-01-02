@@ -5,12 +5,12 @@ class DonationsController < ApplicationController
   def index
     @donations = Donation.all
 
-    render json: @donations
+    render json: @donations.to_json(except: [:created_at, :updated_at])
   end
 
   # GET /donations/1
   def show
-    render json: @donation
+    render json: @donations.to_json(except: [:created_at, :updated_at])
   end
 
   # POST /donations
@@ -46,6 +46,6 @@ class DonationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def donation_params
-      params.require(:donation).permit(:amount)
+      params.require(:donation).permit(:amount, :donor_id)
     end
 end
